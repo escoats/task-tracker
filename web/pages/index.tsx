@@ -10,14 +10,14 @@ import {
 import { useState } from "react";
 
 enum Priority {
-  HIGH,
-  MEDIUM,
-  LOW,
+  HIGH = "High",
+  MEDIUM = "Medium",
+  LOW = "Low",
 }
 
 enum Status {
-  BACKLOG,
-  COMPLETE,
+  BACKLOG = "Backlog",
+  COMPLETE = "Complete",
 }
 
 export interface Task {
@@ -66,7 +66,7 @@ export default function Home() {
     getRandomTask();
   };
 
-  // TODO: updating task doesn't show in the 
+  // TODO: updating task doesn't show in the
   const handleClickDone = () => {
     const idx = tasks.findIndex((t) => t.title === activeTask!.title);
     tasks[idx].status = Status.COMPLETE;
