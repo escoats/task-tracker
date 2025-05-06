@@ -1,5 +1,5 @@
 {
-    "name": "chore site container",
+    "name": "Task Tracker Container",
     "dockerFile": "Dockerfile",
     
     // Forward ports
