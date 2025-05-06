@@ -29,6 +29,8 @@ export interface Task {
 }
 
 export default function Home() {
+  // TODO: move this somewhere else - unsure where yet
+  //const tasks: Map<number, Task> = new Map();
   const task1: Task = {
     id: 0,
     title: "Organize Dresser",
@@ -36,18 +38,39 @@ export default function Home() {
     priority: Priority.MEDIUM,
     status: Status.BACKLOG,
   };
-  const [activeTask, setActiveTask] = useState<Task | null>(task1);
-
-  // TODO: implement
-  const handleClickSkip = () => {
-    // advance to next task
+  const task2: Task = {
+    id: 1,
+    title: "Meal Prep",
+    description: "Make soup!",
+    priority: Priority.MEDIUM,
+    status: Status.BACKLOG,
   };
 
-  // TODO: implement
+  const tasks: Task[] = [task1, task2];
+
+  const [activeTask, setActiveTask] = useState<Task | null>(tasks[0]);
+
+  const getRandomTask = () => {
+    if (tasks.length == 1) return null;
+
+    let idx = Math.floor(Math.random() * tasks.length);
+    while (tasks[idx].title == activeTask!.title) {
+      idx = Math.floor(Math.random() * tasks.length);
+    }
+    console.log(tasks[idx].title);
+
+    setActiveTask(tasks[idx]);
+  };
+
+  const handleClickSkip = () => {
+    getRandomTask();
+  };
+
+  // TODO: updating task doesn't show in the 
   const handleClickDone = () => {
-    // edit corresponding task in dictionary (with matching id)
-    // to have status COMPLETE
-    // then advance to next task
+    const idx = tasks.findIndex((t) => t.title === activeTask!.title);
+    tasks[idx].status = Status.COMPLETE;
+    getRandomTask();
   };
   return (
     <>
@@ -63,7 +86,13 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <CardDescription>
-              {activeTask ? <p>{activeTask.description}</p> : "Take a break!"}
+              {activeTask ? (
+                <p>
+                  {activeTask.description}, {activeTask.status}
+                </p>
+              ) : (
+                "Take a break!"
+              )}
             </CardDescription>
           </CardContent>
 
