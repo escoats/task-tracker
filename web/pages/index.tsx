@@ -45,32 +45,88 @@ export default function Home() {
     priority: Priority.MEDIUM,
     status: Status.BACKLOG,
   };
+  const task3: Task = {
+    id: 2,
+    title: "Pack picnic!",
+    description:
+      "Bring: blanket, speaker, cooler (with sparkling soda), cheese plate, and strawberries",
+    priority: Priority.HIGH,
+    status: Status.BACKLOG,
+  };
+  const task4: Task = {
+    id: 3,
+    title: "Get pants tailored",
+    description: "North Hills?",
+    priority: Priority.LOW,
+    status: Status.BACKLOG,
+  };
+  const task5: Task = {
+    id: 4,
+    title: "Find internship clothes",
+    description: "Kuhu recommends Express?",
+    priority: Priority.MEDIUM,
+    status: Status.BACKLOG,
+  };
 
-  const tasks: Task[] = [task1, task2];
+  // placholder value
+  const [taskList, setTaskList] = useState<Task[]>([
+    task1,
+    task2,
+    task3,
+    task4,
+    task5,
+  ]);
 
-  const [activeTask, setActiveTask] = useState<Task | null>(tasks[0]);
+  const [activeTaskIdx, setActiveTaskIdx] = useState<number | null>(0);
 
-  const getRandomTask = () => {
-    if (tasks.length == 1) return null;
-
-    let idx = Math.floor(Math.random() * tasks.length);
-    while (tasks[idx].title == activeTask!.title) {
-      idx = Math.floor(Math.random() * tasks.length);
+  // Sets a new active task that is different than the previous task
+  const setRandomTaskIdx = () => {
+    if (taskList.length == 1) {
+      return;
     }
-    console.log(tasks[idx].title);
 
-    setActiveTask(tasks[idx]);
+    let idx = Math.floor(Math.random() * taskList.length);
+    while (idx == activeTaskIdx) {
+      idx = Math.floor(Math.random() * taskList.length);
+    }
+    setActiveTaskIdx(idx);
   };
 
   const handleClickSkip = () => {
-    getRandomTask();
+    if (taskList.length == 1) {
+      window.alert("This is your only task left! Add some more or get it done");
+      return;
+    }
+    setRandomTaskIdx();
   };
 
-  // TODO: updating task doesn't show in the
   const handleClickDone = () => {
-    const idx = tasks.findIndex((t) => t.title === activeTask!.title);
-    tasks[idx].status = Status.COMPLETE;
-    getRandomTask();
+    if (activeTaskIdx === null) return;
+
+    // create new object
+    const completedTask: Task = {
+      id: taskList[activeTaskIdx].id,
+      title: taskList[activeTaskIdx].title,
+      description: taskList[activeTaskIdx].description,
+      priority: taskList[activeTaskIdx].priority,
+      status: Status.COMPLETE,
+    };
+
+    // update list
+    const newTaskList: Task[] = taskList.map((task, i) => {
+      if (i === activeTaskIdx) return completedTask;
+      else return task;
+    });
+
+    setTaskList(newTaskList);
+
+    if (taskList.length == 1) {
+      console.log("list length is 1");
+      setActiveTaskIdx(null);
+      return;
+    }
+
+    setRandomTaskIdx();
   };
   return (
     <>
@@ -78,25 +134,23 @@ export default function Home() {
       <div className="text-3xl m-8 flex flex-row content-center justify-center">
         <Card className="w-md">
           <CardHeader>
-            {activeTask ? (
-              <CardTitle>{activeTask.title}</CardTitle>
+            {activeTaskIdx != null ? (
+              <CardTitle>{taskList[activeTaskIdx].title}</CardTitle>
             ) : (
               <CardTitle>No more tasks!</CardTitle>
             )}
           </CardHeader>
           <CardContent>
             <CardDescription>
-              {activeTask ? (
-                <p>
-                  {activeTask.description}, {activeTask.status}
-                </p>
+              {activeTaskIdx != null ? (
+                <p>{taskList[activeTaskIdx].description}</p>
               ) : (
                 "Take a break!"
               )}
             </CardDescription>
           </CardContent>
 
-          {activeTask && (
+          {activeTaskIdx != null && (
             <CardFooter className="flex flex-row justify-between">
               <Button
                 onClick={handleClickSkip}
