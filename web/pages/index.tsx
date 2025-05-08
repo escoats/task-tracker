@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -130,6 +131,7 @@ export default function Home() {
   };
   return (
     <>
+      <Navbar />
       <p className="text-4xl text-center m-12">Task Tracker</p>
       <div className="text-3xl m-8 flex flex-row content-center justify-center">
         <Card className="w-md">
