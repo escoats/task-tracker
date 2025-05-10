@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { PriorityTag } from "@/components/PriorityTag";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -145,7 +146,10 @@ export default function Home() {
           <CardContent>
             <CardDescription>
               {activeTaskIdx != null ? (
-                <p>{taskList[activeTaskIdx].description}</p>
+                <div>
+                  <p>{taskList[activeTaskIdx].description}</p>
+                  <PriorityTag priority={taskList[activeTaskIdx].priority} />
+                </div>
               ) : (
                 "Take a break!"
               )}
