@@ -14,8 +14,9 @@ export function PriorityTag({ priority }: { priority: Priority }) {
       style = "bg-green-200";
       break;
   }
+
   return (
-    <div className={style + "  w-xxs p-2"}>
+    <div className={style + "  w-xxs p-2 rounded-sm"}>
       <p>{priority.toUpperCase()}</p>
     </div>
   );

@@ -7,13 +7,18 @@ import {
 } from "@/components/ui/card";
 import { Task } from "@/pages";
 import { PriorityTag } from "./PriorityTag";
+import { Ellipsis } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function TaskSummaryCard({ task }: { task: Task }) {
   return (
-    <div className="border-blue-100 w-[calc(33.333%-1rem)] text-center">
+    <div className="w-[calc(33.333%-1rem)] text-center">
       <Card>
-        <CardHeader>
-          <CardTitle>{task.title}</CardTitle>
+        <CardHeader className="flex items-center justify-center relative">
+          <CardTitle className="text-center">{task.title}</CardTitle>
+          <Button className="absolute right-0 mr-2" variant="ghost">
+            <Ellipsis /> {/* TODO: add task editing functionality here! */}
+          </Button>
         </CardHeader>
         <CardContent className="flex flex-row"></CardContent>
 

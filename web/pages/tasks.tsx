@@ -17,10 +17,14 @@ export default function TaskPage() {
     <div>
       <Navbar></Navbar>
       <div className="flex flex-row m-6 items-center h-[100%]">
-        <Tabs defaultValue="backlog" className="w-full h-full bg-red-300">
-          <TabsList className="w-full h-full">
-            <TabsTrigger value="backlog">Backlog</TabsTrigger>
-            <TabsTrigger value="complete">Complete</TabsTrigger>
+        <Tabs defaultValue="backlog" className="w-full h-full">
+          <TabsList className="w-full">
+            <TabsTrigger value="backlog" className="text-md font-semibold">
+              Backlog
+            </TabsTrigger>
+            <TabsTrigger value="complete" className="text-md font-semibold">
+              Complete
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="backlog"></TabsContent>
           <TabsContent value="complete">
