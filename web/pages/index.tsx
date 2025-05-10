@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/card";
 import { useState } from "react";
 
-enum Priority {
+export enum Priority {
   HIGH = "High",
   MEDIUM = "Medium",
   LOW = "Low",
 }
 
-enum Status {
+export enum Status {
   BACKLOG = "Backlog",
   COMPLETE = "Complete",
 }
